@@ -29,6 +29,8 @@ class ContProblem:
             self.no_jax = True
         else:
             raise Exception('Unknown Jacobian mode specified')
+        # Adjust format of u0
+        self.u0 = onp.array(u0) if self.no_jax else jax.numpy.array(u0)
         self.df_dlmbda_vec = None
         # derivative only wrt u
         self.jac_mat = None
@@ -83,7 +85,7 @@ class ContProblem:
             return jax.numpy.dot(a, a)
 
     def update_jac(self, u, lmbda):
-        _f = lambda x: self.func(x, lmbda)
+        _f = lambda x: self.f(x, lmbda)
         if self.jac_mode == 'Forward':
             self.jac_mat = jax.jacfwd(_f)(u)
         elif self.jac_mode == 'Reverse':
@@ -97,7 +99,7 @@ class ContProblem:
         self.prev_lmbda_for_jac = lmbda
 
     def update_dfdlmbda(self, u, lmbda):
-        _f = lambda x: self.func(u, x)
+        _f = lambda x: self.f(u, x)
         if self.jac_mode == 'Forward':
             self.df_dlmbda_vec = jax.jacfwd(_f)(lmbda)
         elif self.jac_mode == 'Reverse':
