@@ -19,4 +19,17 @@ setup(name='FContin',
       "pacopy"],
       long_description=long_description,
       long_description_content_type="text/markdown",
+      classifiers=[
+        'Topic :: Scientific/Engineering :: Mathematics',
+        'License :: OSI Approved :: MIT License',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3 :: Only',
+      ],
+      keywords='arclength python continuation numerical',
+      project_urls={  # Optional
+        'Bug Reports': 'https://github.com/gpavanb1/FContin/issues',
+        'Source': 'https://github.com/gpavanb1/FContin/',
+      },
       zip_safe=False)
