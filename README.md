@@ -1,6 +1,6 @@
 # FContin
 
-![Made with Love in India](https://madewithlove.org.in/badge.svg)
+![Made with Love in India](https://madewithlove.org.in/badge.svg) [![Downloads](https://pepy.tech/badge/fcontin)](https://pepy.tech/project/fcontin)
 
 Solve F(**u**, λ) = 0 over λ with just F!
 
