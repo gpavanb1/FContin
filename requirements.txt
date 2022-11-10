@@ -1,13 +1,14 @@
 absl-py==0.9.0
 cycler==0.10.0
-jax==0.1.69
-jaxlib==0.1.47
+flatbuffers==2.0.7
+jax==0.2.17
+jaxlib==0.1.69
 kiwisolver==1.2.0
 matplotlib==3.2.1
 numdifftools==0.9.39
 numpy==1.18.5
 opt-einsum==3.2.1
-pacopy==0.1.2
+-e git+https://github.com/sigma-py/pacopy.git@8d23487b356644421a25ce02462470acce5864f6#egg=pacopy
 pyparsing==2.4.7
 python-dateutil==2.8.1
 scipy==1.4.1

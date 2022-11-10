@@ -10,6 +10,8 @@ This enables automatic/numerical differentiation to obtain the Jacobian and deri
 
 # How to install and execute?
 
+Tested on Python 3.6.2 and [pacopy 0.1.0](https://github.com/sigma-py/pacopy/tree/branch-switching)
+
 Just run 
 ```
 pip install fcontin
@@ -18,6 +20,17 @@ pip install fcontin
 The following program illustrates a basic example
 ```python
 from fcontin.ContProblem import ContProblem
+
+###
+# Output record
+###
+lmbda_list = []
+values_list = []
+
+def callback(k, lmbda, sol):
+    # Use the callback for plotting, writing data to files etc.
+    lmbda_list.append(lmbda)
+    values_list.append(sol)
 
 ###
 # Define problem
@@ -44,7 +57,7 @@ lmbda0 = 1.0
 # Forward, Reverse, Numerical, Complex for jac_mode
 problem = ContProblem(f, u0, lmbda0,
 cont_method='Euler-Newton', 
-jac_mode='Complex',
+jac_mode='Forward',
 max_steps=10,
 newton_tol=1e-10,
 callback=callback
