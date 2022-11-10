@@ -1,6 +1,7 @@
 import jax
 import numpy as onp
 import pacopy
+import scipy.sparse as s
 import scipy.linalg as sp
 import numdifftools as nd
 
@@ -10,6 +11,7 @@ class ContProblem:
     callback=None, 
     jac_mode='Forward',
     max_steps=10,
+    sparsify=False,
     newton_tol=1e-10):
         # number of elements in u
         self.u0 = u0
@@ -22,6 +24,7 @@ class ContProblem:
         self.max_steps = max_steps
         self.newton_tol = newton_tol
         self.callback = callback
+        self.sparsify = sparsify
         # Set JAX mode
         if jac_mode == 'Forward' or jac_mode == 'Reverse':
             self.no_jax = False
@@ -62,10 +65,16 @@ class ContProblem:
         # solver might do in-place operations
         M = self.jac(u, lmbda).copy()
         if self.no_jax:
-            return sp.solve(M, rhs)
+            if not self.sparsify:
+                return sp.solve(M, rhs)
+            else:
+                return s.linalg.spsolve(s.csr_matrix(M), rhs)
         else:
-            return jax.scipy\
+            if not self.sparsify:
+                return jax.scipy\
                 .linalg.solve(M, rhs)
+            else:
+                return jax.scipy.sparse.linalg.cg(s.csr_matrix(M), rhs)
 
     def inner(self, a, b):
         """The inner product of the problem. Can be numpy.dot(a, b), but factoring in
