@@ -11,5 +11,5 @@ opt-einsum==3.2.1
 -e git+https://github.com/sigma-py/pacopy.git@8d23487b356644421a25ce02462470acce5864f6#egg=pacopy
 pyparsing==2.4.7
 python-dateutil==2.8.1
-scipy==1.4.1
+scipy==1.10.0
 six==1.15.0
